@@ -1,0 +1,90 @@
+<!doctype html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CSV/XLSX Tagger</title>
+        <link rel="stylesheet" href="style.css">
+      </head>
+      <body>
+        <div id="app">
+          <h1>Upload and Tag CSV/XLSX</h1>
+
+          <div class="upload-section section-box">
+            <label for="csvFile">Select CSV or XLSX File(s):</label>
+            <input type="file" id="csvFile" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple style="display: none;">
+            <button id="importButton">Import File(s)</button>
+             <div id="loadingIndicator" style="display: none; margin-top: 10px;">Processing files...</div>
+          </div>
+
+          <div class="tag-management section-box">
+            <h2>Manage Tags</h2>
+            <input type="text" id="newTagInput" placeholder="Enter new tag name">
+            <button id="addTagButton">Add Tag</button>
+            <div id="availableTagsDisplay">
+              <strong>Available Tags:</strong>
+            </div>
+          </div>
+
+          <div class="export-section section-box">
+             <h2>Export by Tag (CSV)</h2>
+             <label for="exportTagSelect">Select Tag to Export:</label>
+             <select id="exportTagSelect">
+               <option value="">-- Select Tag --</option>
+             </select>
+             <button id="exportButton">Export Filtered CSV</button>
+          </div>
+
+          <!-- Chart Section - Initially Hidden -->
+          <div id="chartSection" class="chart-section section-box hidden">
+              <h2>Monthly Spending by Tag</h2>
+              <div class="chart-container">
+                  <canvas id="spendingChart"></canvas>
+              </div>
+          </div>
+
+          <!-- Parsed Data Section - Initially Hidden -->
+          <div id="output" class="output-section section-box hidden">
+            <h2>Parsed Data</h2>
+
+            <div class="table-controls">
+              <div class="search-container">
+                <label for="searchInput">Search:</label>
+                <input type="text" id="searchInput" placeholder="Search table...">
+              </div>
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <input type="checkbox" id="selectAllCheckbox" title="Select/Deselect All Rows">
+                <label for="selectAllCheckbox" style="display: inline; margin-left: 5px;">Select/Deselect All</label>
+                <select id="bulkTagSelect" style="margin-left: 20px;">
+                    <option value="">Assign Tag to Selected...</option>
+                </select>
+                <button id="bulkTagButton" style="margin-left: 5px;">Apply Tag</button>
+            </div>
+            <div class="table-container">
+              <table id="dataTable">
+                <thead></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+
+            <div class="pagination-controls">
+              <button id="prevPageButton" disabled>&laquo; Previous</button>
+              <span id="pageInfo">Page 1 of 1</span>
+              <button id="nextPageButton" disabled>Next &raquo;</button>
+              <select id="rowsPerPageSelect" title="Rows per page">
+                  <option value="10">10</option>
+                  <option value="25" selected>25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+              </select>
+              <span id="rowCountInfo"></span>
+            </div>
+          </div>
+        </div>
+        <!-- Include xlsx library script (Chart.js is now imported via module) -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+        <script type="module" src="/main.js"></script>
+      </body>
+    </html>
